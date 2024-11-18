@@ -5,6 +5,7 @@ import { PAGES } from '../../constants';
 import { INoteContext, NoteContext } from '../../contexts/NotesContextProvider';
 import { useDeleteNote } from '../../hooks/useDeleteNote';
 import { useGetNote } from '../../hooks/useGetNote';
+import Loader from '../../components/shared/Loader';
 
 const Note: React.FC = () => {
   const { setNotes } = useContext(NoteContext) as INoteContext
@@ -19,7 +20,7 @@ const Note: React.FC = () => {
     <div className='w-full flex flex-col justify-center items-center'>
       {
         isLoading
-          ? <p>Loading...</p>
+          ? <Loader />
           : <div className='w-3/5'>
             <div className='flex flex-col sm:flex-row items-center justify-between mb-3'>
               <Link className='bg-gray-300 p-3 ' to={PAGES.NOTES}>

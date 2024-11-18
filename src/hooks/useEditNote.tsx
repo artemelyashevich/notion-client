@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { useMutation } from '@tanstack/react-query';
 import { PAGES } from "../constants"
 import { UseFormReset } from 'react-hook-form'
+import { handleError } from "../utils/error.util"
 
 
 interface IProps {
@@ -27,9 +28,10 @@ export const useEditNote = ({ reset, id }: IProps) => {
         },
         onError: (err: AxiosError) => {
             const e = err.response?.data as IError
-            setApiErrors(Object.keys(e.errors).length !== 0 ? Object.values(e.errors) : [e.message])
+            setApiErrors(handleError(e))
             toast.error("An error occurred.")
-        }
+        },
+        retry: false
     })
     return { apiErrors, mutate }
 }

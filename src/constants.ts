@@ -1,8 +1,7 @@
 export const BASE_URL = "http://localhost:8222/api/v1"
 
 export enum PAGES {
-    DASHBOARD = "/",
-    ABOUT = "/about",
+    ABOUT = "/",
     NOTES = "/notes",
     AUTH = "/auth",
     NOTE = "/note/:id",

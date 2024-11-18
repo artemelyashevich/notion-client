@@ -9,6 +9,7 @@ import { AuthService } from '../../service/auth.service';
 import { useNavigate } from 'react-router-dom';
 import { PAGES } from '../../constants';
 import { AxiosError } from 'axios';
+import Loader from '../shared/Loader';
 
 const SignUpSchema = z.object({
     email: z.string()
@@ -44,7 +45,7 @@ const AuthForm: React.FC = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isLoading },
         reset
     } = useForm<SignUpSchemaType>({ resolver: zodResolver(SignUpSchema) })
 
@@ -95,6 +96,9 @@ const AuthForm: React.FC = () => {
             <span onClick={handleChangeStatus} className='underline m-2 cursor-pointer'>
                 {isRegister ? 'Login' : 'Register'} here
             </span>
+            {
+                isLoading && <Loader />
+            }
             <button className='border px-5 py-2 text-center hover:bg-black hover:text-white' type='submit'>
                 {!isRegister ? 'Login' : 'Register'}
             </button>

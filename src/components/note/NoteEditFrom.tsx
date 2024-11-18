@@ -1,17 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useMutation } from '@tanstack/react-query';
-import { IError, INote } from '../../types';
-import toast from 'react-hot-toast'
-import { AxiosError } from 'axios';
-import { PAGES } from '../../constants';
-import { useNavigate, useParams } from 'react-router-dom';
-import { NoteService } from '../../service/note.service';
+import { useParams } from 'react-router-dom';
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEditNote } from '../../hooks/useEditNote';
 import { useGetNote } from '../../hooks/useGetNote';
-
+import Loader from '../shared/Loader';
 
 const CreateNoteSchema = z.object({
     title: z.string().min(2, {
@@ -21,7 +15,6 @@ const CreateNoteSchema = z.object({
 })
 
 type CreateNoteSchemaType = z.infer<typeof CreateNoteSchema>
-
 
 const NoteEditFrom: React.FC = () => {
     const { id } = useParams()
@@ -38,9 +31,8 @@ const NoteEditFrom: React.FC = () => {
         <>
             {
                 isLoading
-                    ? <p>Loading...</p>
+                    ? <Loader />
                     : <form onSubmit={handleSubmit(handleSubmitForm)} className='p-5 border flex flex-col justify-center items-center w-3/4'>
-
                         <div className='flex items-start flex-col gap-1 mb-3 w-full'>
                             <label>Title</label>
                             <input {...register('title')} defaultValue={data?.title} className='border p-2 w-full' />

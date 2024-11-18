@@ -4,6 +4,7 @@ import { PAGES } from '../../constants'
 import { TokenService } from '../../service/token.service'
 import toast from 'react-hot-toast'
 import { IUserContext, UserContext } from '../../contexts/UserContextProvider'
+import Loader from '../shared/Loader'
 
 const Header: React.FC = () => {
   const { user, isLoading } = useContext(UserContext) as IUserContext
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
   return (
     <header className='flex justify-between p-10'>
       <h1>
-        Hello, {isLoading ? <p>Loading...</p> : <span>{user?.email}</span>}
+        Hello, {isLoading ? <Loader /> : <span>{user?.email}</span>}
       </h1>
       <nav className="flex gap-10">
         <NavLink
